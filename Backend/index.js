@@ -30,9 +30,17 @@ async function fetchAllTracks(){
 
 // Route to fetch all tracks
 app.get("/tracks", async (req, res)=>{
+ try{ 
  let results = await fetchAllTracks();
 
+ if(results.tracks.length === 0){
+   res.status(404).json({ message: "No Tracks found." });
+ }
+
  res.status(200).json(results);
+ } catch(error){
+   res.status(500).json({ error: error.message });
+ }
 });
 
 // function to fetch tracks by artist
@@ -44,10 +52,18 @@ async function fetchTracksByArtist(artist){
 
 // Route to fetch tracks by artist
 app.get("/tracks/artist/:artist", async (req, res)=>{
+ try{ 
  let artist = req.params.artist;
  let results = await fetchTracksByArtist(artist);
 
+ if(results.tracks.length === 0){
+   res.status(404).json({ message: "No tracks of this artist found." });
+ }
+
  res.status(200).json(results);
+ } catch(error){
+   res.status(500).json({ error: error.message });
+ }
 });
 
 // function to fetch tracks by genre
@@ -59,10 +75,18 @@ async function fetchTracksByGenre(genre){
 
 // Route to fetch tracks by genre
 app.get("/tracks/genre/:genre", async (req, res)=>{
+ try{ 
  let genre = req.params.genre;
  let results = await fetchTracksByGenre(genre);
 
+ if(results.tracks.length === 0){
+   res.status(404).json({ message: "No tracks of this genre found." });
+ }
+
  res.status(200).json(results);
+ } catch(error){
+   res.status(500).json({ error: error.message });
+ }
 });
 
 // function to fetch tracks by release year
@@ -74,10 +98,18 @@ async function fetchTracksByReleaseYear(year){
 
 // Route to fetch tracks by release year
 app.get("/tracks/release_year/:year", async (req, res)=>{
+ try{ 
  let year = req.params.year;
  let results = await fetchTracksByReleaseYear(year);
 
+ if(results.tracks.length === 0){
+   res.status(404).json({ message: "No tracks of this year found." });
+ }
+
  res.status(200).json(results);
+ } catch(error){
+   res.status(500).json({ error: error.message });
+ }
 });
 
 // Start server
